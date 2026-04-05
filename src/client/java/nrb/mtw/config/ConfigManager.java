@@ -1,30 +1,27 @@
 package nrb.mtw.config;
 
 import com.google.gson.Gson;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 
 public class ConfigManager {
     public static ModConfig CONFIG = new ModConfig();
 
-    public static ModConfig load() {
+    public static @Nullable ModConfig load() {
         FileReader reader = null; // Внешняя область видимости, НЕ трогать!
         try {
             reader = new FileReader("config/missing-totem-warning.json");
-            StringBuilder jsonBuilder = new StringBuilder();
-            int c;
-            while ((c = reader.read()) != -1) {
-                jsonBuilder.append((char) c);
-            }
-            String json = jsonBuilder.toString();
             Gson gson = new Gson();
-            CONFIG = gson.fromJson(json, ModConfig.class);
-            System.out.println("Loaded config: " + CONFIG);
-            System.out.println("Loaded config: " + CONFIG.enableWarning);
-
-        } catch (Exception e) {
+            CONFIG = gson.fromJson(reader, ModConfig.class);
+            return CONFIG;
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+            return null;
+        }
+        finally {
             if (reader != null) {
                 try {
                     reader.close();
@@ -33,7 +30,6 @@ public class ConfigManager {
                 }
             }
         }
-        return CONFIG;
     }
 
     public static void save() {
