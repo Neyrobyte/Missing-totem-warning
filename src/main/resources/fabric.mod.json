@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "missingtotemwarning",
+	"version": "${version}",
+	"name": "MissingTotemWarning",
+	"description": "Shows a warning when you don't have a Totem of Undying in your hand. Useful in cpvp",
+	"authors": [
+		"Neyrobyte"
+	],
+	"contact": {
+		"sources": "https://github.com/Neyrobyte/Missing-totem-warning"
+	},
+    "custom": {
+      "modmenu": {
+        "links": {
+          "GitHub": "https://github.com/Neyrobyte"
+        }
+      }
+    },
+	"license": "MIT",
+	"icon": "assets/missingtotemwarning/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["nrb.mtw.MissingTotemWarningClient"],
+        "modmenu": ["nrb.mtw.config.ModMenuIntegration"]
+	},
+	"mixins": [
+		"missingtotemwarning.mixins.json",
+		{
+			"config": "missingtotemwarning.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.5",
+		"minecraft": ">=1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
