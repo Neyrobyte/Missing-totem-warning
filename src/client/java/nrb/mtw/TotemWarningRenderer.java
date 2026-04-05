@@ -22,8 +22,9 @@ public class TotemWarningRenderer {
     public static void render(DrawContext context, ModConfig CONFIG) {
         MinecraftClient client = MinecraftClient.getInstance();
 
+        // Проверка на состояние конфига
         if (!CONFIG.enableWarning) {
-            return; // Проверка на состояние конфига
+            return;
         }
 
         if (client.player != null) {
@@ -31,8 +32,19 @@ public class TotemWarningRenderer {
             ItemStack offHand = client.player.getOffHandStack();
             boolean hasTotem = mainHand.isOf(Items.TOTEM_OF_UNDYING) || offHand.isOf(Items.TOTEM_OF_UNDYING);
 
+            // Не показывать предупреждение в креативе и спектаторе
+            if (client.player.isCreative() || client.player.isSpectator()) {
+                return;
+            }
+
+            // Не показывать, если игрок уже мертв
+            if (client.player.isDead()) {
+                return;
+            }
+
             if (!hasTotem) {
-                if ( windowWidth != client.getWindow().getScaledWidth() || windowHeight != client.getWindow().getScaledHeight()) {
+                // Обновлять поля только если они изменились
+                if (windowWidth != client.getWindow().getScaledWidth() || windowHeight != client.getWindow().getScaledHeight()) {
                     windowWidth = client.getWindow().getScaledWidth();
                     windowHeight = client.getWindow().getScaledHeight();
                     posX = (windowWidth - textureWidth * zoomLevel) / 2; // По центру по горизонтали
@@ -41,20 +53,17 @@ public class TotemWarningRenderer {
                     // client.player.sendMessage(Text.of("if use"), false); // Отладка
                 }
 
-                    context.drawTexture(
-                            TEXTURE,
-                            posX,
-                            posY,
-                            0,
-                            0,
-                            textureWidth * zoomLevel,
-                            textureHeight * zoomLevel,
-                            textureWidth * zoomLevel ,
-                            textureHeight * zoomLevel
-                    );
-                    // первая пара textureHeight\textureWidth – это реальный размер текстуры
-                    // вторая – это размер текстуры на экране (можно масштабировать, растягивать)
-
+                context.drawTexture(
+                        TEXTURE,
+                        posX,
+                        posY,
+                        0,
+                        0,
+                        textureWidth * zoomLevel,
+                        textureHeight * zoomLevel,
+                        textureWidth * zoomLevel,
+                        textureHeight * zoomLevel
+                );
             }
         }
     }

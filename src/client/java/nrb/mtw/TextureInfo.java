@@ -10,7 +10,22 @@ import java.nio.file.Files;
 
 public class TextureInfo {
     public static @Nullable NativeImage loadImage() {
-        if (false) { // Если в директории юзера есть соответствующий файл, то грузим его оттуда, иначе грузим из ресурсов (еще нет реализации
+        if (true) {
+            // В будущем можно заменить на чтение размеров из IHDR chunk через InputStream
+            // Для оптимизации загрузки, чтобы не грузить весь файл.
+            try (InputStream stream = TextureInfo.class
+                    .getResourceAsStream("/assets/missingtotemwarning/textures/img.png")) {
+
+                if (stream == null) {
+                    System.out.println("[ERROR] Texture not found in resources.");
+                    return null;
+                }
+                return NativeImage.read(stream);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else { // Если в директории юзера есть соответствующий файл, то грузим его оттуда, иначе грузим из ресурсов (еще не реализовано)
             File file = new File("/assets/missingtotemwarning/textures/img.png");
 
             if (!file.exists() || !file.isFile()) {
@@ -19,20 +34,6 @@ public class TextureInfo {
             }
 
             try (InputStream stream = Files.newInputStream(file.toPath())) {
-                return NativeImage.read(stream);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            try (InputStream stream = TextureInfo.class
-                    .getResourceAsStream("/assets/missingtotemwarning/textures/img.png")) {
-
-                if (stream == null) {
-                    System.out.println("[ERROR] Texture not found in resources.");
-                    return null;
-                }
-
                 return NativeImage.read(stream);
             } catch (IOException e) {
                 throw new RuntimeException(e);
