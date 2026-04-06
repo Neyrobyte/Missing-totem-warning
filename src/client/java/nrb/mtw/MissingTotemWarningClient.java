@@ -7,11 +7,12 @@ import nrb.mtw.config.ConfigManager;
 import nrb.mtw.config.ModConfig;
 
 public class MissingTotemWarningClient implements ClientModInitializer {
+    public static final String MOD_ID = "missingtotemwarning";
 
     @Override
     public void onInitializeClient() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            ModConfig cfg = ConfigManager.load();
+            ModConfig cfg = ConfigManager.load(); // Локальная переменная для оптимизации
             HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
                 TotemWarningRenderer.render(matrixStack, cfg);
             });

@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import nrb.mtw.config.ModConfig;
 
 public class TotemWarningRenderer {
-    private static final Identifier TEXTURE = Identifier.of("missingtotemwarning", "textures/img.png");
+    private static final Identifier TEXTURE = Identifier.of(MissingTotemWarningClient.MOD_ID, "textures/img.png");
     private static int windowWidth;
     private static int windowHeight;
     private static int posX;
@@ -21,9 +21,7 @@ public class TotemWarningRenderer {
 
     public static void render(DrawContext context, ModConfig cfg) {
         // Проверка на состояние конфига
-        if (!cfg.enableWarning) {
-            return;
-        }
+        if (!cfg.enableWarning) return;
 
         if (client.player != null) {
             ItemStack mainHand = client.player.getMainHandStack();
@@ -44,8 +42,9 @@ public class TotemWarningRenderer {
                 // Обновлять поля только если они изменились
                 // В будущем возможно заменить на событие resize окна
                 if (windowWidth != client.getWindow().getScaledWidth() || windowHeight != client.getWindow().getScaledHeight()) {
-                    windowWidth = client.getWindow().getScaledWidth();
-                    windowHeight = client.getWindow().getScaledHeight();
+                    var window = client.getWindow();
+                    windowWidth = window.getScaledWidth();
+                    windowHeight = window.getScaledHeight();
                     posX = (windowWidth - textureWidth) / 2; // По центру по горизонтали
                     posY = textureHeight / 2; // Немного ниже верхнего края
 
