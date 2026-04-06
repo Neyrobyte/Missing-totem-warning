@@ -13,17 +13,15 @@ public class TotemWarningRenderer {
     private static int windowHeight;
     private static int posX;
     private static int posY;
-    private static final int[] textureSize = TextureInfo.getSize();
-    private static final int textureWidth = textureSize[0];
-    private static final int textureHeight = textureSize[1];
     private static final int zoomLevel = 2;
+    private static final int[] textureSize = TextureInfo.getSize();
+    private static final int textureWidth = textureSize[0] * zoomLevel;
+    private static final int textureHeight = textureSize[1] * zoomLevel;
+    private static final MinecraftClient client = MinecraftClient.getInstance();
 
-
-    public static void render(DrawContext context, ModConfig CONFIG) {
-        MinecraftClient client = MinecraftClient.getInstance();
-
+    public static void render(DrawContext context, ModConfig cfg) {
         // Проверка на состояние конфига
-        if (!CONFIG.enableWarning) {
+        if (!cfg.enableWarning) {
             return;
         }
 
@@ -37,17 +35,18 @@ public class TotemWarningRenderer {
                 return;
             }
 
-            // Не показывать, если игрок уже мертв
+            // Не показывать, если игрок уже мёртв
             if (client.player.isDead()) {
                 return;
             }
 
             if (!hasTotem) {
                 // Обновлять поля только если они изменились
+                // В будущем возможно заменить на событие resize окна
                 if (windowWidth != client.getWindow().getScaledWidth() || windowHeight != client.getWindow().getScaledHeight()) {
                     windowWidth = client.getWindow().getScaledWidth();
                     windowHeight = client.getWindow().getScaledHeight();
-                    posX = (windowWidth - textureWidth * zoomLevel) / 2; // По центру по горизонтали
+                    posX = (windowWidth - textureWidth) / 2; // По центру по горизонтали
                     posY = textureHeight / 2; // Немного ниже верхнего края
 
                     // client.player.sendMessage(Text.of("if use"), false); // Отладка
@@ -59,10 +58,10 @@ public class TotemWarningRenderer {
                         posY,
                         0,
                         0,
-                        textureWidth * zoomLevel,
-                        textureHeight * zoomLevel,
-                        textureWidth * zoomLevel,
-                        textureHeight * zoomLevel
+                        textureWidth,
+                        textureHeight,
+                        textureWidth,
+                        textureHeight
                 );
             }
         }

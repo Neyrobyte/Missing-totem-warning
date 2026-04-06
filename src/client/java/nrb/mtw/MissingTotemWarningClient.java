@@ -11,10 +11,9 @@ public class MissingTotemWarningClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            ModConfig CONFIG = ConfigManager.load();
-
+            ModConfig cfg = ConfigManager.load();
             HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
-                TotemWarningRenderer.render(matrixStack, CONFIG);
+                TotemWarningRenderer.render(matrixStack, cfg);
             });
         });
     }
