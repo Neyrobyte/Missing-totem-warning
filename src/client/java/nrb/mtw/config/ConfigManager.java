@@ -2,7 +2,7 @@ package nrb.mtw.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import nrb.mtw.MissingTotemWarningClient;
+import nrb.mtw.MissingTotemWarning;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,9 +12,9 @@ public class ConfigManager {
     public static ModConfig CONFIG = new ModConfig();
 
     public static ModConfig load() {
-        try (FileReader reader = new FileReader("config/" + MissingTotemWarningClient.MOD_ID + ".json")) {
+        try (FileReader reader = new FileReader("config/" + MissingTotemWarning.MOD_ID + ".json")) {
             CONFIG = new Gson().fromJson(reader, ModConfig.class);
-            System.out.println("Loading config: " + CONFIG.enableWarning);
+            MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
             if (CONFIG == null) {
                 return new ModConfig();
             }
@@ -26,9 +26,9 @@ public class ConfigManager {
     }
 
     public static void save() {
-        try (FileWriter writer = new FileWriter("config/" + MissingTotemWarningClient.MOD_ID + ".json")) {
+        try (FileWriter writer = new FileWriter("config/" + MissingTotemWarning.MOD_ID + ".json")) {
             new GsonBuilder().setPrettyPrinting().create().toJson(CONFIG, writer);
-            System.out.println("Saving config: " + CONFIG.enableWarning);
+            MissingTotemWarning.LOGGER.info("Config saved: {}", CONFIG.enableWarning);
         } catch (IOException e) {
             e.printStackTrace();
         }
