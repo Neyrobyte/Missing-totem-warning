@@ -41,8 +41,8 @@ public class TotemWarningRenderer {
             if (!hasTotem) {
                 // Обновлять поля только если они изменились
                 // В будущем возможно заменить на событие resize окна
-                if (windowWidth != client.getWindow().getScaledWidth() || windowHeight != client.getWindow().getScaledHeight()) {
-                    var window = client.getWindow();
+                var window = client.getWindow();
+                if (windowWidth != window.getScaledWidth() || windowHeight != window.getScaledHeight()) {
                     windowWidth = window.getScaledWidth();
                     windowHeight = window.getScaledHeight();
                     posX = (windowWidth - textureWidth) / 2; // По центру по горизонтали

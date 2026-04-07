@@ -14,10 +14,10 @@ public class ConfigManager {
     public static ModConfig load() {
         try (FileReader reader = new FileReader("config/" + MissingTotemWarning.MOD_ID + ".json")) {
             CONFIG = new Gson().fromJson(reader, ModConfig.class);
-            MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
             if (CONFIG == null) {
-                return new ModConfig();
+                CONFIG = new ModConfig();
             }
+            MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
             return CONFIG;
         } catch (IOException e) {
             e.printStackTrace();
