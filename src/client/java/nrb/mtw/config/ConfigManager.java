@@ -24,7 +24,7 @@ public class ConfigManager {
             MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
             return CONFIG;
         } catch (IOException e) {
-            e.printStackTrace();
+            MissingTotemWarning.LOGGER.error(e.getMessage());
             return new ModConfig();
         }
     }
@@ -34,7 +34,7 @@ public class ConfigManager {
             new GsonBuilder().setPrettyPrinting().create().toJson(CONFIG, writer);
             MissingTotemWarning.LOGGER.info("Config saved: {}", CONFIG.enableWarning);
         } catch (IOException e) {
-            e.printStackTrace();
+            MissingTotemWarning.LOGGER.error(e.getMessage());
         }
     }
 }
