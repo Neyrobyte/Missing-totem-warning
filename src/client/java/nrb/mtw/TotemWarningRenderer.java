@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import nrb.mtw.config.ModConfig;
 
 public class TotemWarningRenderer {
-    private static final Identifier TEXTURE = Identifier.of(MissingTotemWarningClient.MOD_ID, "textures/img.png");
+    private static final Identifier TEXTURE = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
     private static int windowWidth;
     private static int windowHeight;
     private static int posX;

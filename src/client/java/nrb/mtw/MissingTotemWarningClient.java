@@ -7,8 +7,6 @@ import nrb.mtw.config.ConfigManager;
 import nrb.mtw.config.ModConfig;
 
 public class MissingTotemWarningClient implements ClientModInitializer {
-//    public static final String MOD_ID = "missingtotemwarning";
-
 
     @Override
     public void onInitializeClient() {
