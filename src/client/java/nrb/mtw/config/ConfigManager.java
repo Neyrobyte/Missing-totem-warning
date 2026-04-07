@@ -2,17 +2,21 @@ package nrb.mtw.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 import nrb.mtw.MissingTotemWarning;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class ConfigManager {
     public static ModConfig CONFIG = new ModConfig();
 
     public static ModConfig load() {
-        try (FileReader reader = new FileReader("config/" + MissingTotemWarning.MOD_ID + ".json")) {
+        Path configPath = FabricLoader.getInstance().getConfigDir()
+                .resolve(MissingTotemWarning.MOD_ID + ".json");
+        try (FileReader reader = new FileReader(configPath.toFile())) {
             CONFIG = new Gson().fromJson(reader, ModConfig.class);
             if (CONFIG == null) {
                 CONFIG = new ModConfig();

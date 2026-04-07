@@ -24,19 +24,11 @@ public class TotemWarningRenderer {
         if (!cfg.enableWarning) return;
 
         if (client.player != null) {
+            if (client.player.isCreative() || client.player.isSpectator() || client.player.isDead()) return;
+
             ItemStack mainHand = client.player.getMainHandStack();
             ItemStack offHand = client.player.getOffHandStack();
             boolean hasTotem = mainHand.isOf(Items.TOTEM_OF_UNDYING) || offHand.isOf(Items.TOTEM_OF_UNDYING);
-
-            // Не показывать предупреждение в креативе и спектаторе
-            if (client.player.isCreative() || client.player.isSpectator()) {
-                return;
-            }
-
-            // Не показывать, если игрок уже мёртв
-            if (client.player.isDead()) {
-                return;
-            }
 
             if (!hasTotem) {
                 // Обновлять поля только если они изменились
