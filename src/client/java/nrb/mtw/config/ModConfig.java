@@ -1,5 +1,7 @@
 package nrb.mtw.config;
 
+import net.minecraft.client.option.KeyBinding;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,8 @@ public class ModConfig {
     // Список триггеров в чате, при которых мод будет автоматически включаться\выключаться (например, "You duel"\"You win the duel")
     public List<String> chatTriggers = new ArrayList<>();
 
-    // Клавиши для включения\выключения мода
+    // Переключать мод клавишей
     public boolean useKeybind = true;
 
+    public KeyBinding keyBind = new KeyBinding("key.mtw.toggle_warning", 33, "category.mtw"); // 33 - клавиша "B"
 }
