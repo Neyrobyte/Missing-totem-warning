@@ -14,8 +14,7 @@ public class ConfigManager {
     public static ModConfig CONFIG = new ModConfig();
 
     public static ModConfig load() {
-        Path configPath = FabricLoader.getInstance().getConfigDir()
-                .resolve(MissingTotemWarning.MOD_ID + ".json");
+        Path configPath = FabricLoader.getInstance().getConfigDir().resolve(MissingTotemWarning.MOD_ID + ".json");
         try (FileReader reader = new FileReader(configPath.toFile())) {
             CONFIG = new Gson().fromJson(reader, ModConfig.class);
             if (CONFIG == null) {

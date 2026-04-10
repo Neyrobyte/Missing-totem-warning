@@ -1,7 +1,5 @@
 package nrb.mtw.config;
 
-import net.minecraft.client.option.KeyBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,4 @@ public class ModConfig {
 
     // Переключать мод клавишей
     public boolean useKeybind = true;
-
-    public KeyBinding keyBind = new KeyBinding("key.mtw.toggle_warning", 33, "category.mtw"); // 33 - клавиша "B"
 }

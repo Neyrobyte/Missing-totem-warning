@@ -24,7 +24,9 @@ public class TotemWarningRenderer {
         if (!cfg.enableWarning) return;
 
         if (client.player != null) {
-            if (client.player.isCreative() || client.player.isSpectator() || client.player.isDead()) return;
+            if (client.player.isCreative() || client.player.isSpectator() || client.player.isDead() || client.options.hudHidden) {
+                return;
+            }
 
             ItemStack mainHand = client.player.getMainHandStack();
             ItemStack offHand = client.player.getOffHandStack();
