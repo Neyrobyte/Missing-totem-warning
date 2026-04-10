@@ -19,7 +19,7 @@ public class MissingTotemWarningClient implements ClientModInitializer {
             new KeyBinding(
                     "key.mtw.toggle_warning",
                     InputUtil.Type.KEYSYM,
-                    GLFW.GLFW_KEY_B,
+                    GLFW.GLFW_KEY_RIGHT_ALT,
                     KeyBinding.UI_CATEGORY
             )
     );
