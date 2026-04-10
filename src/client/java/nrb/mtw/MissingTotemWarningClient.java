@@ -11,12 +11,12 @@ import java.util.Optional;
 
 public class MissingTotemWarningClient implements ClientModInitializer {
     private static KeyBindingHelper keyBindingHelper;
+
     @Override
     public void onInitializeClient() {
         Optional.ofNullable(keyBindingHelper).ifPresentOrElse(helper -> KeyBindingHelper.registerKeyBinding(ConfigManager.CONFIG.keyBind), () -> {
-//                    keyBindingHelper = new KeyBindingHelper();
-                    KeyBindingHelper.registerKeyBinding(ConfigManager.CONFIG.keyBind);
-                });
+            KeyBindingHelper.registerKeyBinding(ConfigManager.CONFIG.keyBind);
+        });
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             ModConfig cfg = ConfigManager.load(); // Локальная переменная для оптимизации
