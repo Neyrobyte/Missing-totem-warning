@@ -5,7 +5,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import nrb.mtw.config.ModConfig;
+import nrb.mtw.config.ConfigManager;
 
 public class TotemWarningRenderer {
     private static final Identifier TEXTURE = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
@@ -19,9 +19,9 @@ public class TotemWarningRenderer {
     private static final int textureHeight = textureSize[1] * zoomLevel;
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
-    public static void render(DrawContext context, ModConfig cfg) {
+    public static void render(DrawContext context) {
         // Проверка на состояние конфига
-        if (!cfg.enableWarning) return;
+        if (!ConfigManager.CONFIG.enableWarning) return;
 
         if (client.player != null) {
             if (client.player.isCreative() || client.player.isSpectator() || client.player.isDead() || client.options.hudHidden) {

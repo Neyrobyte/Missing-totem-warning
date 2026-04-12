@@ -12,28 +12,35 @@ import java.nio.file.Path;
 
 public class ConfigManager {
     public static ModConfig CONFIG = new ModConfig();
+    private static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve(
+            MissingTotemWarning.MOD_ID +
+                    ".json"
+    );
 
-    public static ModConfig load() {
-        Path configPath = FabricLoader.getInstance().getConfigDir().resolve(MissingTotemWarning.MOD_ID + ".json");
+    public static void load() {
         try (FileReader reader = new FileReader(configPath.toFile())) {
             CONFIG = new Gson().fromJson(reader, ModConfig.class);
             if (CONFIG == null) {
                 CONFIG = new ModConfig();
             }
             MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
-            return CONFIG;
         } catch (IOException e) {
             MissingTotemWarning.LOGGER.error(e.getMessage());
-            return new ModConfig();
+            CONFIG = new ModConfig();
         }
     }
 
     public static void save() {
-        try (FileWriter writer = new FileWriter("config/" + MissingTotemWarning.MOD_ID + ".json")) {
+        try (FileWriter writer = new FileWriter(configPath.toFile())) {
             new GsonBuilder().setPrettyPrinting().create().toJson(CONFIG, writer);
             MissingTotemWarning.LOGGER.info("Config saved: {}", CONFIG.enableWarning);
         } catch (IOException e) {
             MissingTotemWarning.LOGGER.error(e.getMessage());
         }
+    }
+
+    public static void toggleWarning() {
+        CONFIG.enableWarning = !CONFIG.enableWarning;
+        save();
     }
 }
