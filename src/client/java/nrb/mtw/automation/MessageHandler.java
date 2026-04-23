@@ -1,5 +1,6 @@
 package nrb.mtw.automation;
 
+import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ConfigManager;
 
 import static nrb.mtw.config.ModConfig.*;
@@ -17,9 +18,9 @@ public class MessageHandler {
 
         // только если состояние реально меняется
         if (hasEnable && !ConfigManager.CONFIG.enableWarning) {
-            ConfigManager.toggleWarning();
+            ConfigHandler.toggleWarning();
         } else if (hasDisable && ConfigManager.CONFIG.enableWarning) {
-            ConfigManager.toggleWarning();
+            ConfigHandler.toggleWarning();
         }
     }
 

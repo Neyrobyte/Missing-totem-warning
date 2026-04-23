@@ -38,9 +38,4 @@ public class ConfigManager {
             MissingTotemWarning.LOGGER.error(e.getMessage());
         }
     }
-
-    public static void toggleWarning() {
-        CONFIG.enableWarning = !CONFIG.enableWarning;
-        save();
-    }
 }

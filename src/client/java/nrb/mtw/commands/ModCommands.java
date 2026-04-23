@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import nrb.mtw.UIEffects;
+import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ConfigManager;
 
 public class ModCommands {
@@ -17,7 +18,7 @@ public class ModCommands {
     }
 
     private static int commandToggleWarning(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
-        ConfigManager.toggleWarning();
+        ConfigHandler.toggleWarning();
         UIEffects.soundSwitch(ConfigManager.CONFIG.enableWarning);
         UIEffects.messageSwitch(ConfigManager.CONFIG.enableWarning);
         return 1;
@@ -25,7 +26,7 @@ public class ModCommands {
 
     private static int commandDisableWarning(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
         if (ConfigManager.CONFIG.enableWarning) {
-            ConfigManager.toggleWarning();
+            ConfigHandler.toggleWarning();
             UIEffects.soundSwitch(false);
             UIEffects.messageSwitch(false);
         } else UIEffects.message("already disabled!");
@@ -34,7 +35,7 @@ public class ModCommands {
 
     private static int commandEnableWarning(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
         if (!ConfigManager.CONFIG.enableWarning) {
-            ConfigManager.toggleWarning();
+            ConfigHandler.toggleWarning();
             UIEffects.soundSwitch(true);
             UIEffects.messageSwitch(true);
         } else UIEffects.message("already enabled!");

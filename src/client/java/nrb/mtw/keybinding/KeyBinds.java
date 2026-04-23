@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import nrb.mtw.UIEffects;
+import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ConfigManager;
 import org.lwjgl.glfw.GLFW;
 
@@ -22,7 +23,7 @@ public class KeyBinds {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             // цикл для корректной обработки нажатия
             while (keyBind.wasPressed()) {
-                ConfigManager.toggleWarning();
+                ConfigHandler.toggleWarning();
                 UIEffects.soundSwitch(ConfigManager.CONFIG.enableWarning);
                 UIEffects.messageSwitch(ConfigManager.CONFIG.enableWarning);
             }
