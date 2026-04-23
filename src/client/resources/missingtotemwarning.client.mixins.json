@@ -1,14 +1,14 @@
 {
-	"required": true,
-	"package": "nrb.mtw.mixin.client",
-	"compatibilityLevel": "JAVA_21",
-	"client": [
-		"ExampleClientMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "nrb.mtw.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "InGameHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

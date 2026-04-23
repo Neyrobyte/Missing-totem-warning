@@ -11,8 +11,8 @@ public class ModCommands {
     public static void register() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             dispatcher.register(ClientCommandManager.literal("mtw").executes(ModCommands::commandToggleWarning)
-            .then(ClientCommandManager.literal("enable").executes(ModCommands::commandEnableWarning))
-            .then(ClientCommandManager.literal("disable").executes(ModCommands::commandDisableWarning)));
+                    .then(ClientCommandManager.literal("enable").executes(ModCommands::commandEnableWarning))
+                    .then(ClientCommandManager.literal("disable").executes(ModCommands::commandDisableWarning)));
         });
     }
 
@@ -28,8 +28,7 @@ public class ModCommands {
             ConfigManager.toggleWarning();
             UIEffects.soundSwitch(false);
             UIEffects.messageSwitch(false);
-        }
-        else UIEffects.message("already disabled!");
+        } else UIEffects.message("already disabled!");
         return 1;
     }
 
@@ -38,8 +37,7 @@ public class ModCommands {
             ConfigManager.toggleWarning();
             UIEffects.soundSwitch(true);
             UIEffects.messageSwitch(true);
-        }
-        else UIEffects.message("already enabled!");
+        } else UIEffects.message("already enabled!");
         return 1;
     }
 }
