@@ -9,6 +9,8 @@ import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ConfigManager;
 import org.lwjgl.glfw.GLFW;
 
+import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
+
 public class KeyBinds {
     private static final KeyBinding keyBind = KeyBindingHelper.registerKeyBinding(
             new KeyBinding(
@@ -24,8 +26,8 @@ public class KeyBinds {
             // цикл для корректной обработки нажатия
             while (keyBind.wasPressed()) {
                 ConfigHandler.toggleWarning();
-                UIEffects.soundSwitch(ConfigManager.CONFIG.enableWarning);
-                UIEffects.messageSwitch(ConfigManager.CONFIG.enableWarning);
+                UIEffects.soundSwitch(isWarningEnabled());
+                UIEffects.messageSwitch(isWarningEnabled());
             }
         });
     }

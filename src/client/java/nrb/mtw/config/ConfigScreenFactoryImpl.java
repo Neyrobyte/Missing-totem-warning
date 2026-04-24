@@ -5,6 +5,9 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
+import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
+import static nrb.mtw.config.ConfigHandler.setWarning;
+
 public class ConfigScreenFactoryImpl {
 
     public static Screen create(Screen parent) {
@@ -17,8 +20,8 @@ public class ConfigScreenFactoryImpl {
         // пример настройки
         category.addEntry(
                 builder.entryBuilder()
-                        .startBooleanToggle(Text.literal("Enable Warning"), ConfigManager.CONFIG.enableWarning)
-                        .setSaveConsumer(newValue -> ConfigManager.CONFIG.enableWarning = newValue)
+                        .startBooleanToggle(Text.literal("Enable Warning"), isWarningEnabled())
+                        .setSaveConsumer(ConfigHandler::setWarning)
                         .build()
         );
 

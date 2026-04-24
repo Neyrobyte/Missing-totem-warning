@@ -8,6 +8,8 @@ import nrb.mtw.UIEffects;
 import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ConfigManager;
 
+import static nrb.mtw.config.ConfigHandler.*;
+
 public class ModCommands {
     public static void register() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
@@ -18,9 +20,9 @@ public class ModCommands {
     }
 
     private static int commandToggleWarning(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
-        ConfigHandler.toggleWarning();
-        UIEffects.soundSwitch(ConfigManager.CONFIG.enableWarning);
-        UIEffects.messageSwitch(ConfigManager.CONFIG.enableWarning);
+        toggleWarning();
+        UIEffects.soundSwitch(isWarningEnabled());
+        UIEffects.messageSwitch(isWarningEnabled());
         return 1;
     }
 

@@ -7,6 +7,8 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import nrb.mtw.config.ConfigManager;
 
+import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
+
 public class TotemWarningRenderer {
     private static final Identifier TEXTURE = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
     private static int windowWidth;
@@ -21,7 +23,7 @@ public class TotemWarningRenderer {
 
     public static void render(DrawContext context) {
         // Проверка на состояние конфига
-        if (!ConfigManager.CONFIG.enableWarning) return;
+        if (isWarningEnabled()) return;
 
         if (client.player != null) {
             if (client.player.isCreative() || client.player.isSpectator() || client.player.isDead() || client.options.hudHidden) {
