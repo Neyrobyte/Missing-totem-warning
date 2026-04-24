@@ -25,8 +25,7 @@ public class ModCommands {
     }
 
     private static int commandDisableWarning(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
-        if (ConfigManager.CONFIG.enableWarning) {
-            ConfigHandler.toggleWarning();
+        if (ConfigHandler.setWarning(false)) {
             UIEffects.soundSwitch(false);
             UIEffects.messageSwitch(false);
         } else UIEffects.message("already disabled!");
@@ -34,8 +33,7 @@ public class ModCommands {
     }
 
     private static int commandEnableWarning(CommandContext<FabricClientCommandSource> fabricClientCommandSourceCommandContext) {
-        if (!ConfigManager.CONFIG.enableWarning) {
-            ConfigHandler.toggleWarning();
+        if (ConfigHandler.setWarning(true)) {
             UIEffects.soundSwitch(true);
             UIEffects.messageSwitch(true);
         } else UIEffects.message("already enabled!");

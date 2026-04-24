@@ -17,11 +17,7 @@ public class MessageHandler {
         if (hasEnable == hasDisable) return;
 
         // только если состояние реально меняется
-        if (hasEnable && !ConfigManager.CONFIG.enableWarning) {
-            ConfigHandler.toggleWarning();
-        } else if (hasDisable && ConfigManager.CONFIG.enableWarning) {
-            ConfigHandler.toggleWarning();
-        }
+        ConfigHandler.setWarning(hasEnable);
     }
 
     private static boolean containsAny(String text, String[] words) {
