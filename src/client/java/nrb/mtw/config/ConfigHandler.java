@@ -6,6 +6,10 @@ public class ConfigHandler {
         return ConfigManager.CONFIG.enableWarning;
     }
 
+    public static boolean isSurvivalMode() {
+        return ConfigManager.CONFIG.onlySurvival;
+    }
+
     public static void toggleWarning() {
         ConfigManager.CONFIG.enableWarning = !ConfigManager.CONFIG.enableWarning;
         ConfigManager.save();
@@ -18,5 +22,12 @@ public class ConfigHandler {
             return true;
         }
         return false;
+    }
+
+    public static void setSurvivalMode(boolean state) {
+        if (ConfigManager.CONFIG.onlySurvival != state) {
+            ConfigManager.CONFIG.onlySurvival = state;
+            ConfigManager.save();
+        }
     }
 }

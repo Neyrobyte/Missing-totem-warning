@@ -26,7 +26,13 @@ public class TotemWarningRenderer {
         if (isWarningEnabled()) return;
 
         if (client.player != null) {
-            if (client.player.isCreative() || client.player.isSpectator() || client.player.isDead() || client.options.hudHidden) {
+            if (ConfigManager.CONFIG.onlySurvival) {
+                if (client.player.isCreative() || client.player.isSpectator()) {
+                    return;
+                }
+            }
+
+            if (client.player.isDead() || client.options.hudHidden) {
                 return;
             }
 

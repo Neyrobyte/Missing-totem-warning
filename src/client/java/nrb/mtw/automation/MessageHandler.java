@@ -1,7 +1,6 @@
 package nrb.mtw.automation;
 
 import nrb.mtw.config.ConfigHandler;
-import nrb.mtw.config.ConfigManager;
 
 import static nrb.mtw.config.ModConfig.*;
 

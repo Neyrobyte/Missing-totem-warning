@@ -5,8 +5,8 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
+import static nrb.mtw.config.ConfigHandler.isSurvivalMode;
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
-import static nrb.mtw.config.ConfigHandler.setWarning;
 
 public class ConfigScreenFactoryImpl {
 
@@ -20,8 +20,15 @@ public class ConfigScreenFactoryImpl {
         // пример настройки
         category.addEntry(
                 builder.entryBuilder()
-                        .startBooleanToggle(Text.literal("Enable Warning"), isWarningEnabled())
+                        .startBooleanToggle(Text.literal("Enable warning"), isWarningEnabled())
                         .setSaveConsumer(ConfigHandler::setWarning)
+                        .build()
+        );
+
+        category.addEntry(
+                builder.entryBuilder()
+                        .startBooleanToggle(Text.literal("Only survival"), isSurvivalMode())
+                        .setSaveConsumer(ConfigHandler::setSurvivalMode)
                         .build()
         );
 

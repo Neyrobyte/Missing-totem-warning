@@ -25,4 +25,5 @@ public class ModConfig {
             "loss",
             "defeat"
     };
+    public boolean onlySurvival = false;
 }

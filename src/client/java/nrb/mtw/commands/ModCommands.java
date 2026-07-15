@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import nrb.mtw.UIEffects;
 import nrb.mtw.config.ConfigHandler;
-import nrb.mtw.config.ConfigManager;
 
 import static nrb.mtw.config.ConfigHandler.*;
 
