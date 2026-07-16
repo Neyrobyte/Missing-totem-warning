@@ -10,6 +10,10 @@ public class ConfigHandler {
         return ConfigManager.CONFIG.onlySurvival;
     }
 
+    public static int getTotemSlot() {
+        return ConfigManager.CONFIG.totemSlot;
+    }
+
     public static void toggleWarning() {
         ConfigManager.CONFIG.enableWarning = !ConfigManager.CONFIG.enableWarning;
         ConfigManager.save();
@@ -29,5 +33,16 @@ public class ConfigHandler {
             ConfigManager.CONFIG.onlySurvival = state;
             ConfigManager.save();
         }
+    }
+
+    public static void setTotemSlot(int slot) {
+        if (slot < 1 || slot > 9) {
+            throw new IllegalArgumentException("Slot must be between 1 and 9");
+        }
+        if (slot == ConfigManager.CONFIG.totemSlot) {
+            return;
+        }
+        ConfigManager.CONFIG.totemSlot = slot;
+        ConfigManager.save();
     }
 }

@@ -10,12 +10,13 @@ import java.nio.file.Files;
 
 public class TextureInfo {
     public static @Nullable NativeImage loadImage() {
+//        TODO: Допилить реализацию загрузки текстуры из директории юзера, если она там есть
         // Если в директории юзера есть соответствующий файл,
-        // то грузим его оттуда (еще не реализовано),
-        // иначе грузим из ресурсов.
+        // то загружать его оттуда (еще не реализовано),
+        // иначе грузим из ресурсов
         if (true) { // Из ресурсов
             try (InputStream stream = TextureInfo.class
-                    // В будущем можно заменить на чтение размеров из IHDR chunk через InputStream
+                    // TODO: В будущем заменить на чтение размеров через InputStream из IHDR chunk'а изображения
                     // Для оптимизации загрузки, чтобы не грузить весь файл.
                     .getResourceAsStream("/assets/missingtotemwarning/textures/img.png")) {
 

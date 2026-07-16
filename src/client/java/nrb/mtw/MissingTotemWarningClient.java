@@ -2,7 +2,6 @@ package nrb.mtw;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import nrb.mtw.commands.ModCommands;
 import nrb.mtw.keybinding.KeyBinds;
@@ -18,7 +17,8 @@ public class MissingTotemWarningClient implements ClientModInitializer {
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
-                TotemWarningRenderer.render(matrixStack);
+                TotemWarningRender.render(matrixStack);
+                TotemWarningRenderSecondSlot.render(matrixStack);
             });
         });
     }

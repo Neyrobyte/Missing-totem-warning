@@ -26,4 +26,6 @@ public class ModConfig {
             "defeat"
     };
     public boolean onlySurvival = false;
+
+    public int totemSlot = 8;
 }

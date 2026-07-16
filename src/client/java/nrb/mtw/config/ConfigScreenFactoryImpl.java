@@ -5,8 +5,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
-import static nrb.mtw.config.ConfigHandler.isSurvivalMode;
-import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
+import static nrb.mtw.config.ConfigHandler.*;
 
 public class ConfigScreenFactoryImpl {
 
@@ -17,7 +16,6 @@ public class ConfigScreenFactoryImpl {
 
         ConfigCategory category = builder.getOrCreateCategory(Text.literal("General"));
 
-        // пример настройки
         category.addEntry(
                 builder.entryBuilder()
                         .startBooleanToggle(Text.literal("Enable warning"), isWarningEnabled())
@@ -29,6 +27,13 @@ public class ConfigScreenFactoryImpl {
                 builder.entryBuilder()
                         .startBooleanToggle(Text.literal("Only survival"), isSurvivalMode())
                         .setSaveConsumer(ConfigHandler::setSurvivalMode)
+                        .build()
+        );
+
+        category.addEntry(
+                builder.entryBuilder()
+                        .startIntField(Text.literal("Hotbar totem"), getTotemSlot())
+                        .setSaveConsumer(ConfigHandler::setTotemSlot)
                         .build()
         );
 

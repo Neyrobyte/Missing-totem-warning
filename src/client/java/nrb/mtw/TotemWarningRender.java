@@ -9,7 +9,7 @@ import nrb.mtw.config.ConfigManager;
 
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
 
-public class TotemWarningRenderer {
+public class TotemWarningRender implements WarningRender {
     private static final Identifier TEXTURE = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
     private static int windowWidth;
     private static int windowHeight;
@@ -20,6 +20,11 @@ public class TotemWarningRenderer {
     private static final int textureWidth = textureSize[0] * zoomLevel;
     private static final int textureHeight = textureSize[1] * zoomLevel;
     private static final MinecraftClient client = MinecraftClient.getInstance();
+
+    @Override
+    public int getDrawPriority() {
+        return 200;
+    }
 
     public static void render(DrawContext context) {
         // Проверка на состояние конфига
@@ -42,15 +47,13 @@ public class TotemWarningRenderer {
 
             if (!hasTotem) {
                 // Обновлять поля только если они изменились
-                // В будущем возможно заменить на событие resize окна
+                // TODO: В будущем возможно заменить на событие resize окна
                 var window = client.getWindow();
                 if (windowWidth != window.getScaledWidth() || windowHeight != window.getScaledHeight()) {
                     windowWidth = window.getScaledWidth();
                     windowHeight = window.getScaledHeight();
                     posX = (windowWidth - textureWidth) / 2; // По центру по горизонтали
                     posY = textureHeight / 2; // Немного ниже верхнего края
-
-                    // client.player.sendMessage(Text.of("if use"), false); // Отладка
                 }
 
                 context.drawTexture(
