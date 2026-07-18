@@ -16,14 +16,10 @@ public class TotemWarningRenderSecondSlot implements WarningRender {
     private static int posX;
     private static int posY;
     private static final int zoomLevel = 2;
-    private static final int[] textureSize = TextureInfo.getSize();
+    private static final int[] textureSize = TextureManager.getSize();
     private static final int textureWidth = textureSize[0] * zoomLevel;
     private static final int textureHeight = textureSize[1] * zoomLevel;
     private static final MinecraftClient client = MinecraftClient.getInstance();
-    @Override
-    public int getDrawPriority() {
-        return 100;
-    }
 
     public static void render(DrawContext context) {
         // Проверка на состояние конфига

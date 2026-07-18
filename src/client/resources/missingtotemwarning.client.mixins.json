@@ -3,7 +3,8 @@
   "package": "nrb.mtw.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "ScreenResizeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
