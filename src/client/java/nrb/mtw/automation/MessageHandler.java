@@ -1,16 +1,15 @@
 package nrb.mtw.automation;
 
 import nrb.mtw.config.ConfigHandler;
-
-import static nrb.mtw.config.ModConfig.*;
+import nrb.mtw.config.ModConfig;
 
 public class MessageHandler {
 
     public static void onTitle(String title) {
         String t = title.toLowerCase();
 
-        boolean hasEnable = containsAny(t, EnableWords);
-        boolean hasDisable = containsAny(t, DisableWords);
+        boolean hasEnable = containsAny(t, ModConfig.getInstance().EnableWords);
+        boolean hasDisable = containsAny(t, ModConfig.getInstance().DisableWords);
 
         // конфликт или ничего не найдено
         if (hasEnable == hasDisable) return;
