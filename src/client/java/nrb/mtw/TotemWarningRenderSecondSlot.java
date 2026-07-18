@@ -9,7 +9,7 @@ import nrb.mtw.config.ConfigManager;
 
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
 
-public class TotemWarningRenderSecondSlot implements WarningRender {
+public class TotemWarningRenderSecondSlot {
     private static final Identifier TEXTURE = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
     private static int windowWidth;
     private static int windowHeight;

@@ -18,7 +18,7 @@ public class MissingTotemWarningClient implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             TextureManager.loadImage();
             HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
-                TotemWarningRender.render(matrixStack);
+                WarningRender.render(matrixStack);
 //                TotemWarningRenderSecondSlot.render(matrixStack);
             });
         });

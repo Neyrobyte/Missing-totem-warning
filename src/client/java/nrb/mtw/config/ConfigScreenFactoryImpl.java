@@ -4,7 +4,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import nrb.mtw.TotemWarningRender;
+import nrb.mtw.WarningRender;
 
 import static nrb.mtw.config.ConfigHandler.*;
 
@@ -43,18 +43,18 @@ public class ConfigScreenFactoryImpl {
         category.addEntry(
                 builder.entryBuilder()
                         .startFloatField(Text.literal("Zoom multipler"), isZoomLevel())
-                        .setMin(0)
+                        .setMin(0.1F)
                         .setMax(10)
                         .setTooltip(Text.literal("Set the zoom level for the warning texture (0-10)"))
                         .setSaveConsumer((value) -> {
                             setZoomLevel(value);
-                            TotemWarningRender.calculateSizeOnWindow(value);
-                            TotemWarningRender.updatePosition();
+                            WarningRender.calculateSizeOnWindow(value);
+                            WarningRender.updatePosition();
                         })
                         .build()
         );
 
-        builder.setSavingRunnable(ConfigManager::save);
+//        builder.setSavingRunnable(ConfigManager::save);
 
         return builder.build();
     }

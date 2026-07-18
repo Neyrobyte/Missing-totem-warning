@@ -50,7 +50,7 @@ public class ConfigHandler {
     }
 
     public static void setZoomLevel(float zoomLevel) {
-        if (zoomLevel < 0 || zoomLevel >= 10) {
+        if (zoomLevel < 0.1 || zoomLevel > 10) {
             throw new IllegalArgumentException("Zoom level must be between 0 and 10");
         }
         if (zoomLevel == ConfigManager.CONFIG.zoomLevel) {
