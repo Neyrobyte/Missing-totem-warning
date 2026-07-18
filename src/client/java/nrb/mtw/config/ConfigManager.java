@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ConfigManager {
-    public static ModConfig CONFIG = new ModConfig();
+    public static ModConfig CONFIG = ModConfig.getInstance();
     private static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve(
             MissingTotemWarning.MOD_ID +
                     ".json"
@@ -21,12 +21,14 @@ public class ConfigManager {
         try (FileReader reader = new FileReader(configPath.toFile())) {
             CONFIG = new Gson().fromJson(reader, ModConfig.class);
             if (CONFIG == null) {
-                CONFIG = new ModConfig();
+//                CONFIG = new ModConfig();
+                CONFIG = ModConfig.getInstance();
             }
             MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
         } catch (IOException e) {
             MissingTotemWarning.LOGGER.error(e.getMessage());
-            CONFIG = new ModConfig();
+//            CONFIG = new ModConfig();
+            CONFIG = ModConfig.getInstance();
         }
     }
 
