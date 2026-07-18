@@ -1,31 +1,42 @@
 package nrb.mtw;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 public class TextureManager {
-    private static final File userPath = new File("./mtw/textures/img.png");
-    private static Identifier identifier;
+    private static final File userPath = new File("mtw/textures/img.png");
+    private static Identifier id = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
     private static int[] size;
 
-    // FIXME: Возможно стоит поместить логику loadImage в конструктор для большей безопасности
     public static void loadImage() {
         dirManage();
-
-        // Проверка наличия файла в директории юзера
-        if (userPath.isFile()) identifier = Identifier.of("./mtw/textures/img.png");
-        else identifier = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");
-
-        findSize(identifier.getPath());
+        if (userPath.isFile()) {
+            try {
+                NativeImage image = NativeImage.read(new FileInputStream(userPath));
+                if (image.getWidth() <= 0 || image.getHeight() <= 0) {
+                    throw new IllegalStateException("Invalid image size");
+                }
+                id = MinecraftClient.getInstance()
+                        .getTextureManager()
+                        .registerDynamicTexture("mtw_user_texture",
+                                new NativeImageBackedTexture(image));
+                size = readSizeFromFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else size = readSizeFromResource();
     }
 
     private static void dirManage() {
         if (userPath.getParentFile().exists()) return;
+
         try {
             userPath.getParentFile().mkdirs();
         } catch (Exception e) {
@@ -33,42 +44,33 @@ public class TextureManager {
         }
     }
 
-//    private static NativeImage userLoad() {
-//
-//        try (InputStream stream = Files.newInputStream(userPath.toPath())) {
-//            return NativeImage.read(stream);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static NativeImage defaultLoad() {
-//        try (InputStream stream = MissingTotemWarning.class.getResourceAsStream("/assets/mtw/textures/img.png")) {
-//            if (stream == null) {
-//                throw new RuntimeException("Default image not found in resources.");
-//            }
-//            return NativeImage.read(stream);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    private static int[] readSizeFromResource() {
+        try {
+            var resource = MinecraftClient.getInstance()
+                    .getResourceManager()
+                    .getResource(TextureManager.id);
 
-    private static void findSize(String path) {
-        NativeImage image;
-        try (InputStream stream =  Files.newInputStream(new File(path).toPath())) {
-            image = NativeImage.read(stream);
+            try (InputStream stream = resource.get().getInputStream();
+                 NativeImage img = NativeImage.read(stream)) {
+
+                return new int[]{img.getWidth(), img.getHeight()};
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        try (image) {
-            int width = image.getWidth();
-            int height = image.getHeight();
+    private static int[] readSizeFromFile() {
+        try (InputStream stream = new FileInputStream(TextureManager.userPath)) {
+            NativeImage img = NativeImage.read(stream);
+            return new int[]{img.getWidth(), img.getHeight()};
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static Identifier getIdentifier() {
-        return identifier;
+    public static Identifier getId() {
+        return id;
     }
 
     public static int[] getSize() {
