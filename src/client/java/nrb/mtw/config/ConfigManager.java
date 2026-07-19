@@ -11,31 +11,24 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ConfigManager {
-    public static ModConfig CONFIG = ModConfig.getInstance();
     private static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve(
-            MissingTotemWarning.MOD_ID +
-                    ".json"
-    );
+            MissingTotemWarning.MOD_ID + ".json");
 
     public static void load() {
         try (FileReader reader = new FileReader(configPath.toFile())) {
-            CONFIG = new Gson().fromJson(reader, ModConfig.class);
-            if (CONFIG == null) {
-//                CONFIG = new ModConfig();
-                CONFIG = ModConfig.getInstance();
-            }
-            MissingTotemWarning.LOGGER.info("Loading config: {}", CONFIG.enableWarning);
+            ModConfig loaded = new Gson().fromJson(reader, ModConfig.class);
+            ModConfig.setInstance(loaded);
+            MissingTotemWarning.LOGGER.info("Config loaded");
         } catch (IOException e) {
-            MissingTotemWarning.LOGGER.error(e.getMessage());
-//            CONFIG = new ModConfig();
-            CONFIG = ModConfig.getInstance();
+            MissingTotemWarning.LOGGER.info(e.getMessage());
+            save();
         }
     }
 
     public static void save() {
         try (FileWriter writer = new FileWriter(configPath.toFile())) {
-            new GsonBuilder().setPrettyPrinting().create().toJson(CONFIG, writer);
-            MissingTotemWarning.LOGGER.info("Config saved: {}", CONFIG.enableWarning);
+            new GsonBuilder().setPrettyPrinting().create().toJson(ModConfig.getInstance(), writer);
+            MissingTotemWarning.LOGGER.info("Config saved");
         } catch (IOException e) {
             MissingTotemWarning.LOGGER.error(e.getMessage());
         }

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
-public class InGameHudMixin {
+public class MessageMixin {
 
     @Inject(method = "setTitle", at = @At("HEAD"))
     private void onTitle(Text title, CallbackInfo ci) {
@@ -25,4 +25,6 @@ public class InGameHudMixin {
     private void onActionBar(Text message, boolean tinted, CallbackInfo ci) {
         MessageHandler.onTitle(message.getString());
     }
+
+    // TODO: добавить обработку чата
 }

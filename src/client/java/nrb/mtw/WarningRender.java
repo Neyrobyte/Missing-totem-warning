@@ -23,9 +23,15 @@ public class WarningRender {
     private static int textureHeight = textureSize[1];
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
-    static {
-        calculateSizeOnWindow(ModConfig.getInstance().zoomLevel);
-        updatePosition();
+    private static void calculateSizeFrameOnWindow() {
+        // Вычисление размеров фрейма на основе размеров окна
+        // требует доработки!
+        // Вероятно, не будет использован.
+        var window = client.getWindow();
+        windowWidth = window.getScaledWidth();
+        windowHeight = window.getScaledHeight();
+        frameWidth = windowWidth / 5;
+        frameHeight = windowHeight / 5;
     }
 
     public static void calculateSizeOnWindow(float zoomLevel) {
@@ -40,21 +46,14 @@ public class WarningRender {
         // округленное произведение исходных размеров и коэффициента
         textureWidth = Math.round(textureSize[0] * scaleFactor * zoomLevel);
         textureHeight = Math.round(textureSize[1] * scaleFactor * zoomLevel);
-    }
-
-    private static void calculateSizeFrameOnWindow() {
-        var window = client.getWindow();
-        windowWidth = window.getScaledWidth();
-        windowHeight = window.getScaledHeight();
-        frameWidth = windowWidth / 5;
-        frameHeight = windowHeight / 5;
+        System.out.println(zoomLevel);
     }
 
     public static void updatePosition() {
         windowWidth = client.getWindow().getScaledWidth();
         windowHeight = client.getWindow().getScaledHeight();
         posX = (windowWidth - textureWidth) / 2; // По центру по горизонтали
-        posY = windowHeight / 32; // Немного ниже верхнего края
+        posY = windowHeight / 22; // Немного ниже верхнего края
     }
 
     public static void render(DrawContext context) {
@@ -62,7 +61,7 @@ public class WarningRender {
         if (!isWarningEnabled()) return;
 
         if (client.player != null) {
-            if (ConfigManager.CONFIG.onlySurvival) {
+            if (ModConfig.getInstance().onlySurvival) {
                 if (client.player.isCreative() || client.player.isSpectator()) {
                     return;
                 }

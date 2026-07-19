@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import nrb.mtw.config.ConfigManager;
+import nrb.mtw.config.ModConfig;
 
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
 
@@ -26,7 +27,7 @@ public class TotemWarningRenderSecondSlot {
         if (isWarningEnabled()) return;
 
         if (client.player != null) {
-            if (ConfigManager.CONFIG.onlySurvival) {
+            if (ModConfig.getInstance().onlySurvival) {
                 if (client.player.isCreative() || client.player.isSpectator()) {
                     return;
                 }
@@ -37,7 +38,7 @@ public class TotemWarningRenderSecondSlot {
                 return;
             }
 
-            ItemStack itemInSlot = client.player.getInventory().getStack(ConfigManager.CONFIG.totemSlot - 1);
+            ItemStack itemInSlot = client.player.getInventory().getStack(ModConfig.getInstance().secondTotemSlot - 1);
             boolean hasTotem = itemInSlot.isOf(Items.TOTEM_OF_UNDYING);
 
             if (!hasTotem) {

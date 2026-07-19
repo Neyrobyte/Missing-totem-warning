@@ -7,6 +7,7 @@ import net.minecraft.client.util.InputUtil;
 import nrb.mtw.UIEffects;
 import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ConfigManager;
+import nrb.mtw.config.ModConfig;
 import org.lwjgl.glfw.GLFW;
 
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
@@ -32,7 +33,7 @@ public class KeyBinds {
             if (isHeld && !wasHeld) {
 
                 if (client.player == null) return;
-                if (ConfigManager.CONFIG.onlySurvival) {
+                if (ModConfig.getInstance().onlySurvival) {
                     if (client.player.isCreative() || client.player.isSpectator()) return;
                 }
 
