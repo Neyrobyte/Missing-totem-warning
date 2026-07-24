@@ -8,6 +8,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * MessageMixin class registering mixins for catching player title messages
+ *
+ * @see MessageHandler
+ */
+
 @Mixin(InGameHud.class)
 public class MessageMixin {
 
@@ -26,5 +32,5 @@ public class MessageMixin {
         MessageHandler.onTitle(message.getString());
     }
 
-    // TODO: добавить обработку чата
+    // TODO: Add chat processing
 }

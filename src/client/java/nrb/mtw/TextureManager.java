@@ -10,6 +10,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * TextureManager class for getting correct image size
+ * Auto user dir management. Auto-detection of image location in user directory
+ *
+ * @see MissingTotemWarningClient
+ * @see WarningRender
+ */
+
 public class TextureManager {
     private static final File userPath = new File("mtw/textures/img.png");
     private static Identifier id = Identifier.of(MissingTotemWarning.MOD_ID, "textures/img.png");

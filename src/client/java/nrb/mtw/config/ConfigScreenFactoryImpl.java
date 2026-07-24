@@ -8,6 +8,14 @@ import nrb.mtw.WarningRender;
 
 import static nrb.mtw.config.ConfigHandler.*;
 
+/**
+ * ConfigScreenFactoryImpl class for creating the configuration screen (ModMenu) for the mod.
+ *
+ * @see ModConfig
+ * @see ConfigHandler
+ * @see ConfigManager
+ */
+
 public class ConfigScreenFactoryImpl {
 
     public static Screen create(Screen parent) {

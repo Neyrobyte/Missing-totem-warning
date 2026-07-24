@@ -10,6 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * ConfigManager class for serializing and deserializing the mod configuration to and from a JSON file.
+ *
+ * @see ModConfig
+ * @see ConfigHandler
+ * @see ConfigScreenFactoryImpl
+ */
+
 public class ConfigManager {
     private static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve(
             MissingTotemWarning.MOD_ID + ".json");

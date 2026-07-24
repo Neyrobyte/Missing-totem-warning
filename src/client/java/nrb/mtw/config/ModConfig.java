@@ -6,6 +6,15 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ModConfig class for storing configuration settings.
+ * Singleton immutable class. Has an instance auto-update system.
+ *
+ * @see ConfigHandler
+ * @see ConfigManager
+ * @see ConfigScreenFactoryImpl
+ */
+
 public class ModConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -19,10 +28,10 @@ public class ModConfig {
     public int secondTotemSlot = DEFAULT_SECOND_TOTEM_SLOT;
     public float zoomLevel = DEFAULT_ZOOM_LEVEL;
 
-    // Список предметов, при нахождении которых в инвентаре enableWarning может переключаться
+    // List of items that, when in the inventory, enable Warning can be toggled
     public List<String> requiredItems = new ArrayList<>();
 
-    // Список слов-триггеров, при обнаружении которых enableWarning может переключаться
+    //List of words-triggers that, when in the inventory, enableWarning can be toggled
     public String[] enableWords = {"в бой", "duel", "fight", "battle"};
     public String[] disableWords = {"win", "victory", "loss", "defeat"};
 

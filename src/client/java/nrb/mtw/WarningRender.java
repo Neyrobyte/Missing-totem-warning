@@ -10,6 +10,13 @@ import nrb.mtw.config.ModConfig;
 
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
 
+/**
+ * WarningRender class for rendering warning-image in player screen
+ *
+ * @see TextureManager
+ * @see ModConfig
+ */
+
 public class WarningRender {
     private static final Identifier TEXTURE = TextureManager.getId();
     private static int windowWidth;
@@ -24,9 +31,9 @@ public class WarningRender {
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
     private static void calculateSizeFrameOnWindow() {
-        // Вычисление размеров фрейма на основе размеров окна
-        // требует доработки!
-        // Вероятно, не будет использован.
+        // Calculate frame size based on window dimensions
+        // requires some improvement!
+        // probably won't be used
         var window = client.getWindow();
         windowWidth = window.getScaledWidth();
         windowHeight = window.getScaledHeight();
@@ -35,15 +42,15 @@ public class WarningRender {
     }
 
     public static void calculateSizeOnWindow(float zoomLevel) {
-        // Масштабирование по меньшей стороне с сохранением пропорций
-        // коэффициенты сжатия отдельно для ширины и высоты
+        // Scaling by the bottom side while maintaining proportions
+        // compression factors separately for width and height
         float widthRatio = (float) frameWidth / textureSize[0];
         float heightRatio = (float) frameHeight / textureSize[1];
 
-        // меньший коэффициент, чтобы текстура вписалась в 48x48
+        // Min factor
         float scaleFactor = Math.min(widthRatio, heightRatio);
 
-        // округленное произведение исходных размеров и коэффициента
+        // Round product original dimensions and factor
         textureWidth = Math.round(textureSize[0] * scaleFactor * zoomLevel);
         textureHeight = Math.round(textureSize[1] * scaleFactor * zoomLevel);
         System.out.println(zoomLevel);
@@ -52,14 +59,15 @@ public class WarningRender {
     public static void updatePosition() {
         windowWidth = client.getWindow().getScaledWidth();
         windowHeight = client.getWindow().getScaledHeight();
-        posX = (windowWidth - textureWidth) / 2; // По центру по горизонтали
-        posY = windowHeight / 22; // Немного ниже верхнего края
+        posX = (windowWidth - textureWidth) / 2; // Centered, horizontally
+        posY = windowHeight / 22; // Just below the top edge
     }
 
     public static void render(DrawContext context) {
-        // Проверка на состояние конфига
+        // Check to config state
         if (!isWarningEnabled()) return;
 
+        // Check to gamemod and config state
         if (client.player != null) {
             if (ModConfig.getInstance().onlySurvival) {
                 if (client.player.isCreative() || client.player.isSpectator()) {
@@ -67,13 +75,15 @@ public class WarningRender {
                 }
             }
 
-            if (client.player.isDead() || client.options.hudHidden) {
-                return;
-            }
+            // Check to is player dead of F1 toggled
+            if (client.player.isDead() || client.options.hudHidden) return;
+
+            // Get hand items
             ItemStack mainHand = client.player.getMainHandStack();
             ItemStack offHand = client.player.getOffHandStack();
             boolean hasTotem = mainHand.isOf(Items.TOTEM_OF_UNDYING) || offHand.isOf(Items.TOTEM_OF_UNDYING);
 
+            // HACK: Is it possible to use window resize event!?
             if (!hasTotem) {
                 if (windowWidth != client.getWindow().getScaledWidth() || windowHeight != client.getWindow().getScaledHeight()) {
                     updatePosition();

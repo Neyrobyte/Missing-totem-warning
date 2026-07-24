@@ -9,6 +9,13 @@ import nrb.mtw.config.ConfigHandler;
 
 import static nrb.mtw.config.ConfigHandler.*;
 
+/**
+ * ModCommands class for registering and handling mod commands.
+ *
+ * @see ConfigHandler
+ * @see UIEffects
+ */
+
 public class ModCommands {
     public static void register() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {

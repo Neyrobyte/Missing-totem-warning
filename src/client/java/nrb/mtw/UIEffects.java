@@ -5,6 +5,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
+/**
+ * UIEffects class provides simple sound and message visual effects
+ */
+
 public class UIEffects {
     private static final SoundEvent soundEvent = SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
     private static final String text = "Totem warning: ";
@@ -20,6 +24,7 @@ public class UIEffects {
     }
 
     public static void messageSwitch(boolean state) {
+        if (client.player == null) return;
         if (state) {
             client.player.sendMessage(Text.literal(text).append(enabledLiteral), true);
         } else {
@@ -28,6 +33,7 @@ public class UIEffects {
     }
 
     public static void message(String message) {
+        if (client.player == null) return;
         client.player.sendMessage(Text.literal(message), true);
     }
 }

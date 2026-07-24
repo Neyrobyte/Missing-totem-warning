@@ -6,11 +6,19 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import nrb.mtw.UIEffects;
 import nrb.mtw.config.ConfigHandler;
-import nrb.mtw.config.ConfigManager;
 import nrb.mtw.config.ModConfig;
 import org.lwjgl.glfw.GLFW;
 
 import static nrb.mtw.config.ConfigHandler.isWarningEnabled;
+
+/**
+ * KeyBinds class for registering mod key binds
+ * Has debounce for key bind
+ *
+ * @see ConfigHandler
+ * @see ModConfig
+ * @see UIEffects
+ */
 
 public class KeyBinds {
     private static boolean wasHeld = false;

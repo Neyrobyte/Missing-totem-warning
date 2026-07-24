@@ -1,5 +1,13 @@
 package nrb.mtw.config;
 
+/**
+ * ConfigHandler class for managing configuration settings.
+ *
+ * @see ModConfig
+ * @see ConfigManager
+ * @see ConfigScreenFactoryImpl
+ */
+
 public class ConfigHandler {
     public static boolean isWarningEnabled() {
         return ModConfig.getInstance().enableWarning;

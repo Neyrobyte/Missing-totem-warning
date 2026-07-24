@@ -3,6 +3,13 @@ package nrb.mtw.automation;
 import nrb.mtw.config.ConfigHandler;
 import nrb.mtw.config.ModConfig;
 
+/**
+ * MessageHandler class for handling in-game messages.
+ *
+ * @see ConfigHandler
+ * @see ModConfig
+ */
+
 public class MessageHandler {
 
     public static void onTitle(String title) {
@@ -11,10 +18,10 @@ public class MessageHandler {
         boolean hasEnable = containsAny(t, ModConfig.getInstance().enableWords);
         boolean hasDisable = containsAny(t, ModConfig.getInstance().disableWords);
 
-        // конфликт или ничего не найдено
+        // conflict or nothing found
         if (hasEnable == hasDisable) return;
 
-        // только если состояние реально меняется
+        // only if state real changed
         ConfigHandler.setWarning(hasEnable);
     }
 
